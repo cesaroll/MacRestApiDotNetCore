@@ -35,19 +35,21 @@ namespace QuotesApi.Controllers
             return _quotesDbContext.Quotes.FirstOrDefault(x => x.Id == id);
         }
 
-        //[HttpPost]
-        //public IActionResult Post([FromBody] Quote model)
-        //{
-        //    if(model != null)
-        //    {
-        //        Quotes.Add(model);
+        // POST: api/quotes
+        [HttpPost]
+        public IActionResult Post([FromBody] Quote model)
+        {
+            if (model != null)
+            {
+                _quotesDbContext.Quotes.Add(model);
+                _quotesDbContext.SaveChanges();
 
-        //        return CreatedAtAction(nameof(Post), new { Id = model.Id, Message = "Created" });
+                return CreatedAtAction(nameof(Post), new { Id = model.Id, Message = "Created" });
 
-        //    }
+            }
 
-        //    return BadRequest();
-        //}
+            return BadRequest();
+        }
 
         //[HttpPut("{id}")]
         //public IActionResult Put(int id, [FromBody] Quote model)
