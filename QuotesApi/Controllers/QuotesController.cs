@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using QuotesApi.Models;
+using QuotesApi.Data;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -13,75 +14,76 @@ namespace QuotesApi.Controllers
     public class QuotesController : Controller
     {
 
-        private static List<Quote> Quotes = new List<Quote>()
+        private QuotesDbContext _quotesDbContext;
+
+        public QuotesController(QuotesDbContext quotesDbContext)
         {
-            new Quote(){Id=0, Title="Imagination", Author="Cesar", Description="Imagination is more important than knowledge."},
-            new Quote(){Id=1, Title="Alive in morning", Author="Omar", Description="Thank you for being alive."}
-        };
+            _quotesDbContext = quotesDbContext;
+        }
 
-
+        // GET: api/quotes
         [HttpGet]
         public IEnumerable<Quote> Get()
         {
-            return Quotes;
+            return _quotesDbContext.Quotes;
         }
 
-        [HttpPost]
-        public IActionResult Post([FromBody] Quote model)
-        {
-            if(model != null)
-            {
-                Quotes.Add(model);
+        //[HttpPost]
+        //public IActionResult Post([FromBody] Quote model)
+        //{
+        //    if(model != null)
+        //    {
+        //        Quotes.Add(model);
 
-                return CreatedAtAction(nameof(Post), new { Id = model.Id, Message = "Created" });
+        //        return CreatedAtAction(nameof(Post), new { Id = model.Id, Message = "Created" });
 
-            }
+        //    }
 
-            return BadRequest();
-        }
+        //    return BadRequest();
+        //}
 
-        [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] Quote model)
-        {
-            if( id > 0 && model != null)
-            {
-                var idx = Quotes.FindIndex(x => x.Id == id);
+        //[HttpPut("{id}")]
+        //public IActionResult Put(int id, [FromBody] Quote model)
+        //{
+        //    if( id > 0 && model != null)
+        //    {
+        //        var idx = Quotes.FindIndex(x => x.Id == id);
 
-                if(idx >= 0)
-                {
-                    Quotes[idx] = model;
+        //        if(idx >= 0)
+        //        {
+        //            Quotes[idx] = model;
 
-                    return Ok(new { Id = id, Message = "Updated" });
+        //            return Ok(new { Id = id, Message = "Updated" });
 
-                }
+        //        }
 
-                return NotFound(new { Id = id, Message = "Not Found" });
+        //        return NotFound(new { Id = id, Message = "Not Found" });
 
-            }
+        //    }
 
-            return BadRequest();
+        //    return BadRequest();
 
-        }
+        //}
 
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
-        {
-            if(id > 0)
-            {
-                var idx = Quotes.FindIndex(x => x.Id == id);
+        //[HttpDelete("{id}")]
+        //public IActionResult Delete(int id)
+        //{
+        //    if(id > 0)
+        //    {
+        //        var idx = Quotes.FindIndex(x => x.Id == id);
 
-                if (idx >= 0)
-                {
-                    Quotes.RemoveAt(idx);
+        //        if (idx >= 0)
+        //        {
+        //            Quotes.RemoveAt(idx);
 
-                    return Ok(new { Id = id, Message = "Deleted" });
-                }
+        //            return Ok(new { Id = id, Message = "Deleted" });
+        //        }
 
-                return NotFound(new { Id = id });
-            }
+        //        return NotFound(new { Id = id });
+        //    }
 
-            return BadRequest();
-        }
+        //    return BadRequest();
+        //}
 
     }
 

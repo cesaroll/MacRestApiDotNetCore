@@ -1,20 +1,21 @@
 ﻿<Properties StartupConfiguration="{69C4419A-11B5-4EE9-A209-613DB598AF22}|Default">
   <MonoDevelop.Ide.ItemProperties.QuotesApi PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="QuotesApi/Controllers/QuotesController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="QuotesApi/Startup.cs">
     <Files>
-      <File FileName="QuotesApi/Controllers/QuotesController.cs" Line="30" Column="58" />
+      <File FileName="QuotesApi/Data/QuotesDbContext.cs" Line="13" Column="49" />
+      <File FileName="QuotesApi/Controllers/QuotesController.cs" Line="82" Column="46" />
+      <File FileName="QuotesApi/Startup.cs" Line="36" Column="76" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="QuotesApi" expanded="True">
             <Node name="QuotesApi" expanded="True">
-              <Node name="Dependencies" expanded="True" />
-              <Node name="Controllers" expanded="True">
-                <Node name="QuotesController.cs" selected="True" />
-              </Node>
+              <Node name="Controllers" expanded="True" />
+              <Node name="Data" expanded="True" />
               <Node name="Models" expanded="True" />
               <Node name="Properties" expanded="True" />
+              <Node name="Startup.cs" selected="True" />
             </Node>
           </Node>
         </State>
