@@ -51,28 +51,31 @@ namespace QuotesApi.Controllers
             return BadRequest();
         }
 
-        //[HttpPut("{id}")]
-        //public IActionResult Put(int id, [FromBody] Quote model)
-        //{
-        //    if( id > 0 && model != null)
-        //    {
-        //        var idx = Quotes.FindIndex(x => x.Id == id);
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, [FromBody] Quote model)
+        {
+            if (id > 0 && model != null)
+            {
+                var entity = _quotesDbContext.Quotes.FirstOrDefault(x => x.Id == id);
 
-        //        if(idx >= 0)
-        //        {
-        //            Quotes[idx] = model;
+                if (entity != null)
+                {
+                    entity.Title = model.Title;
+                    entity.Author = model.Author;
+                    entity.Description = model.Description;
+                    _quotesDbContext.SaveChanges();
 
-        //            return Ok(new { Id = id, Message = "Updated" });
+                    return Ok(new { Id = id, Message = "Updated" });
 
-        //        }
+                }
 
-        //        return NotFound(new { Id = id, Message = "Not Found" });
+                return NotFound(new { Id = id, Message = "Not Found" });
 
-        //    }
+            }
 
-        //    return BadRequest();
+            return BadRequest();
 
-        //}
+        }
 
         //[HttpDelete("{id}")]
         //public IActionResult Delete(int id)
