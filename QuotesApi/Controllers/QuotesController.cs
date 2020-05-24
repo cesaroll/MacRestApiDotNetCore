@@ -51,6 +51,7 @@ namespace QuotesApi.Controllers
             return BadRequest();
         }
 
+        // PUT: api/quotes/5
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] Quote model)
         {
@@ -77,25 +78,27 @@ namespace QuotesApi.Controllers
 
         }
 
-        //[HttpDelete("{id}")]
-        //public IActionResult Delete(int id)
-        //{
-        //    if(id > 0)
-        //    {
-        //        var idx = Quotes.FindIndex(x => x.Id == id);
+        // DELETE: api/quotes/5
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            if (id > 0)
+            {
+                var quote = _quotesDbContext.Quotes.FirstOrDefault(x => x.Id == id);
 
-        //        if (idx >= 0)
-        //        {
-        //            Quotes.RemoveAt(idx);
+                if (quote != null)
+                {
+                    _quotesDbContext.Quotes.Remove(quote);
+                    _quotesDbContext.SaveChanges();
 
-        //            return Ok(new { Id = id, Message = "Deleted" });
-        //        }
+                    return Ok(new { Id = id, Message = "Deleted" });
+                }
 
-        //        return NotFound(new { Id = id });
-        //    }
+                return NotFound(new { Id = id });
+            }
 
-        //    return BadRequest();
-        //}
+            return BadRequest();
+        }
 
     }
 
