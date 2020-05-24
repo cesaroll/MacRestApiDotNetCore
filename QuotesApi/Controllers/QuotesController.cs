@@ -28,6 +28,13 @@ namespace QuotesApi.Controllers
             return _quotesDbContext.Quotes;
         }
 
+        // GET: api/quotes/5
+        [HttpGet("{id}")]
+        public Quote Get(int id)
+        {
+            return _quotesDbContext.Quotes.FirstOrDefault(x => x.Id == id);
+        }
+
         //[HttpPost]
         //public IActionResult Post([FromBody] Quote model)
         //{
