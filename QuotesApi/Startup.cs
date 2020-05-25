@@ -27,7 +27,7 @@ namespace QuotesApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddXmlSerializerFormatters();
             services.AddDbContext<QuotesDbContext>(
                 option => option.UseMySQL("server=localhost;userid=quotesApiUser;pwd=pqwG7TbTNnFKkyMV;port=3306;database=QuotesDb;allowPublicKeyRetrieval=true;sslmode=none")
                 );
