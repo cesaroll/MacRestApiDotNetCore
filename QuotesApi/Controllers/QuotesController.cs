@@ -16,24 +16,37 @@ namespace QuotesApi.Controllers
 
         private QuotesDbContext _quotesDbContext;
 
+
         public QuotesController(QuotesDbContext quotesDbContext)
         {
             _quotesDbContext = quotesDbContext;
         }
 
+
         // GET: api/quotes
         [HttpGet]
-        public IEnumerable<Quote> Get()
+        public IActionResult Get()
         {
-            return _quotesDbContext.Quotes;
+            var quotes = _quotesDbContext.Quotes;
+            return Ok(quotes);
         }
+
 
         // GET: api/quotes/5
         [HttpGet("{id}")]
-        public Quote Get(int id)
+        public IActionResult Get(int id)
         {
-            return _quotesDbContext.Quotes.FirstOrDefault(x => x.Id == id);
+            var quote = _quotesDbContext.Quotes.FirstOrDefault(x => x.Id == id);
+
+            if(quote != null)
+            {
+                return Ok(quote);
+            }
+
+            return NotFound();
+
         }
+
 
         // POST: api/quotes
         [HttpPost]
@@ -50,6 +63,7 @@ namespace QuotesApi.Controllers
 
             return BadRequest();
         }
+
 
         // PUT: api/quotes/5
         [HttpPut("{id}")]
@@ -77,6 +91,7 @@ namespace QuotesApi.Controllers
             return BadRequest();
 
         }
+
 
         // DELETE: api/quotes/5
         [HttpDelete("{id}")]
