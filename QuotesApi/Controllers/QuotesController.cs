@@ -64,6 +64,23 @@ namespace QuotesApi.Controllers
 
         }
 
+        // POST: api/quotes
+        [HttpPost]
+        [Route("[action]")]
+        public IActionResult PostMany([FromBody] List<Quote> quotes)
+        {
+            if (quotes == null || quotes.Count() == 0)
+            {
+                return BadRequest();
+            }
+
+            _quotesDbContext.Quotes.AddRange(quotes);
+            _quotesDbContext.SaveChanges();
+
+            return CreatedAtAction(nameof(Post), new { Ids = quotes.Select(x => x.Id) , Message = "Records Created", HasError = false });
+
+        }
+
 
         // PUT: api/quotes/5
         [HttpPut("{id}")]
