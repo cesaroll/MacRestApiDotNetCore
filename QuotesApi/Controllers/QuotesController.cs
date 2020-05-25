@@ -38,12 +38,12 @@ namespace QuotesApi.Controllers
         {
             var quote = _quotesDbContext.Quotes.FirstOrDefault(x => x.Id == id);
 
-            if(quote != null)
+            if(quote == null)
             {
-                return Ok(quote);
+                return NotFound(new { Id = id, Message = "Record Not Found", HasError = true });
             }
 
-            return NotFound();
+            return Ok(quote);
 
         }
 
@@ -52,16 +52,16 @@ namespace QuotesApi.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] Quote model)
         {
-            if (model != null)
+            if (model == null)
             {
-                _quotesDbContext.Quotes.Add(model);
-                _quotesDbContext.SaveChanges();
-
-                return CreatedAtAction(nameof(Post), new { Id = model.Id, Message = "Created" });
-
+                return BadRequest();
             }
 
-            return BadRequest();
+            _quotesDbContext.Quotes.Add(model);
+            _quotesDbContext.SaveChanges();
+
+            return CreatedAtAction(nameof(Post), new { Id = model.Id, Message = "Record Created", HasError = false });
+
         }
 
 
@@ -69,26 +69,25 @@ namespace QuotesApi.Controllers
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] Quote model)
         {
-            if (id > 0 && model != null)
+            if (id <= 0 || model == null)
             {
-                var entity = _quotesDbContext.Quotes.FirstOrDefault(x => x.Id == id);
-
-                if (entity != null)
-                {
-                    entity.Title = model.Title;
-                    entity.Author = model.Author;
-                    entity.Description = model.Description;
-                    _quotesDbContext.SaveChanges();
-
-                    return Ok(new { Id = id, Message = "Updated" });
-
-                }
-
-                return NotFound(new { Id = id, Message = "Not Found" });
-
+                return BadRequest();
             }
 
-            return BadRequest();
+            var entity = _quotesDbContext.Quotes.FirstOrDefault(x => x.Id == id);
+
+            if (entity == null)
+            {
+                return NotFound(new { Id = id, Message = "Record Not Found", HasError = true });
+            }
+
+            entity.Title = model.Title;
+            entity.Author = model.Author;
+            entity.Description = model.Description;
+            _quotesDbContext.SaveChanges();
+
+            return Ok(new { Id = id, Message = "Record Updated Succesfully", HasError = false });
+
 
         }
 
@@ -97,22 +96,23 @@ namespace QuotesApi.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            if (id > 0)
+            if (id <= 0)
             {
-                var quote = _quotesDbContext.Quotes.FirstOrDefault(x => x.Id == id);
-
-                if (quote != null)
-                {
-                    _quotesDbContext.Quotes.Remove(quote);
-                    _quotesDbContext.SaveChanges();
-
-                    return Ok(new { Id = id, Message = "Deleted" });
-                }
-
-                return NotFound(new { Id = id });
+                return BadRequest();
             }
 
-            return BadRequest();
+            var quote = _quotesDbContext.Quotes.FirstOrDefault(x => x.Id == id);
+
+            if (quote == null)
+            {
+                return NotFound(new { Id = id, Message = "Record Not Found", HasError = true });
+            }
+
+            _quotesDbContext.Quotes.Remove(quote);
+            _quotesDbContext.SaveChanges();
+
+            return Ok(new { Id = id, Message = "Deleted", HasError = false });
+
         }
 
     }
