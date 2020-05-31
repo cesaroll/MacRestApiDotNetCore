@@ -91,16 +91,17 @@ namespace QuotesApi.Controllers
                 return BadRequest();
             }
 
-            var entity = _quotesDbContext.Quotes.FirstOrDefault(x => x.Id == id);
+            var quote = _quotesDbContext.Quotes.FirstOrDefault(x => x.Id == id);
 
-            if (entity == null)
+            if (quote == null)
             {
                 return NotFound(new { Id = id, Message = "Record Not Found", HasError = true });
             }
 
-            entity.Title = model.Title;
-            entity.Author = model.Author;
-            entity.Description = model.Description;
+            quote.Title = model.Title;
+            quote.Author = model.Author;
+            quote.Description = model.Description;
+            quote.Type = model.Type;
             _quotesDbContext.SaveChanges();
 
             return Ok(new { Id = id, Message = "Record Updated Succesfully", HasError = false });

@@ -2,25 +2,30 @@
   <MonoDevelop.Ide.ItemProperties.QuotesApi PreferredExecutionTarget="/Applications/Google Chrome.app" />
   <MonoDevelop.Ide.Workbench ActiveDocument="QuotesApi/Controllers/QuotesController.cs">
     <Files>
-      <File FileName="QuotesApi/Data/QuotesDbContext.cs" Line="13" Column="49" />
-      <File FileName="QuotesApi/Controllers/QuotesController.cs" Line="70" Column="100" />
-      <File FileName="QuotesApi/Startup.cs" />
-      <File FileName="QuotesApi/Models/Quote.cs" />
+      <File FileName="QuotesApi/Controllers/QuotesController.cs" Line="104" Column="37" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="QuotesApi" expanded="True">
             <Node name="QuotesApi" expanded="True">
+              <Node name="Dependencies" expanded="True">
+                <Node name="FrameworkReferences" expanded="True" />
+                <Node name="PackageDependencies" expanded="True" />
+              </Node>
               <Node name="Controllers" expanded="True">
                 <Node name="QuotesController.cs" selected="True" />
               </Node>
               <Node name="Data" expanded="True" />
+              <Node name="Migrations" expanded="True" />
               <Node name="Models" expanded="True" />
               <Node name="Properties" expanded="True" />
             </Node>
           </Node>
         </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
