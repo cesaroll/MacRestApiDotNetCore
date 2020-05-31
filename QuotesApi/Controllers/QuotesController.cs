@@ -102,6 +102,8 @@ namespace QuotesApi.Controllers
             quote.Author = model.Author;
             quote.Description = model.Description;
             quote.Type = model.Type;
+            quote.CreatedAt = model.CreatedAt;
+
             _quotesDbContext.SaveChanges();
 
             return Ok(new { Id = id, Message = "Record Updated Succesfully", HasError = false });
