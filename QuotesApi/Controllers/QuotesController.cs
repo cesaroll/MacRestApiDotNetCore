@@ -67,7 +67,7 @@ namespace QuotesApi.Controllers
         // POST: api/quotes
         [HttpPost]
         [Route("[action]")]
-        public IActionResult PostMany([FromBody] List<Quote> quotes)
+        public IActionResult PostMany([FromBody] List<Quote> quotes) // See Custom input formatters: http://scottclewell.com/post/multiple-or-single-aspnetcore/
         {
             if (quotes == null || quotes.Count() == 0)
             {
